@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ardeno", "Ardeno.csproj", "{083DB30A-1081-4519-978D-5BE7DE06BB8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{083DB30A-1081-4519-978D-5BE7DE06BB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083DB30A-1081-4519-978D-5BE7DE06BB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083DB30A-1081-4519-978D-5BE7DE06BB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083DB30A-1081-4519-978D-5BE7DE06BB8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75344691-61DB-4495-8509-79953B27CC19}
+	EndGlobalSection
+EndGlobal
