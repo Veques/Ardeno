@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ardeno.Stores;
+using Ardeno.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,28 @@ namespace Ardeno.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            NavigationStore navigationStore = new();
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            DataContext = new MainViewModel(navigationStore);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch (Exception) { }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

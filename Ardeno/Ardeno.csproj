@@ -8,12 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
-    <Folder Include="Commands\" />
-    <Folder Include="Stores\" />
-    <Folder Include="Views\Pages\" />
-    <Folder Include="Styles\" />
-    <Folder Include="ViewModels\" />
+    <None Remove="Images\GondorTree.png" />
+    <None Remove="Images\Narsil.png" />
+    <None Remove="Images\Ring.png" />
+    <None Remove="Images\SOMLogo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +23,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\GondorTree.png" />
+    <Resource Include="Images\Narsil.png" />
+    <Resource Include="Images\Ring.png" />
+    <Resource Include="Images\SOMLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>

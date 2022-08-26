@@ -2,8 +2,35 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Ardeno"
+             xmlns:ViewModels="clr-namespace:Ardeno.ViewModels"
+             xmlns:Views="clr-namespace:Ardeno.Views.Pages"
+             xmlns:MainView="clr-namespace:Ardeno.Views"
+             
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type ViewModels:MainViewModel}">
+                <MainView:MainWindow/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
+                <Views:LoginPage/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type ViewModels:GameTypeViewModel}">
+                <Views:GameTypePage/>
+            </DataTemplate>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="Styles/BaseStyles.xaml" />
+                <ResourceDictionary Source="Styles/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

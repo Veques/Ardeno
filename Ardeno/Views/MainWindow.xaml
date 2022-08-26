@@ -3,14 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:Ardeno.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="1100" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" AllowsTransparency="True">
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
     <Border>
-        
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="../Images/Ring.png" AlignmentX="Left" Stretch="UniformToFill"/>
+            </Grid.Background>
+            
+            <Grid MouseDown="Grid_MouseDown" VerticalAlignment="Top">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.03"/>
+                </Grid.Background>
+                <TextBlock Text="Ardeno" VerticalAlignment="Center" FontWeight="Medium"
+                           Foreground="{DynamicResource FontColor}" Margin="10 0 0 0"
+                           FontSize="16"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
+                    <Button HorizontalAlignment="Left" Style="{StaticResource WindowBarButtons}" Click="Minimize_Click">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Width="30" Height="30"/>
+                    </Button>
+                    <Button HorizontalAlignment="Right" Style="{StaticResource WindowBarButtons}" Click="Exit_Click" >
+                        <materialDesign:PackIcon Kind="CloseThick" Width="30" Height="30"/>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+
+            <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentViewModel}" />
         </Grid>
-    
     </Border>
 </Window>
