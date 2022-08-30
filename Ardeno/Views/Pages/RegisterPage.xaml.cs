@@ -1,5 +1,4 @@
-﻿using Ardeno.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,6 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -18,15 +16,13 @@ using System.Windows.Shapes;
 namespace Ardeno.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class RegisterPage : Page
     {
-        public LoginPage()
+        public RegisterPage()
         {
             InitializeComponent();
-
         }
-
     }
 }

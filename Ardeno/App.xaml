@@ -18,10 +18,16 @@
             <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
                 <Views:LoginPage/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type ViewModels:RegisterViewModel}">
+                <Views:RegisterPage/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type ViewModels:GameTypeViewModel}">
                 <Views:GameTypePage/>
             </DataTemplate>
+
+            <FontFamily x:Key="OpenSans">pack://application:,,,/Fonts/OpenSans/#OpenSans</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
@@ -30,6 +36,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="Styles/BaseStyles.xaml" />
                 <ResourceDictionary Source="Styles/Theme.xaml" />
+
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

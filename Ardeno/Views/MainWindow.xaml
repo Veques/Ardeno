@@ -3,32 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodels="clr-namespace:Ardeno.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:viewmodels="clr-namespace:Ardeno.ViewModels" 
+        xmlns:components="clr-namespace:Ardeno.Helpers.Components" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1100" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
-    <Border>
+        Title="MainWindow" Height="550" Width="900" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Background="Transparent" FontFamily="{StaticResource OpenSans}" >
+    <Border CornerRadius="6">
+
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid.Background>
-                <ImageBrush ImageSource="../Images/Ring.png" AlignmentX="Left" Stretch="UniformToFill"/>
-            </Grid.Background>
-            
-            <Grid MouseDown="Grid_MouseDown" VerticalAlignment="Top">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.03"/>
-                </Grid.Background>
-                <TextBlock Text="Ardeno" VerticalAlignment="Center" FontWeight="Medium"
-                           Foreground="{DynamicResource FontColor}" Margin="10 0 0 0"
-                           FontSize="16"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.9*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="img" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="../Images/Ring.png" Stretch="UniformToFill"/>
+
+
+            <Grid Grid.RowSpan="2">
+                <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentViewModel}" Name="frame" Navigating="Frame_Navigating" />
+            </Grid>
+
+            <Grid MouseDown="Grid_MouseDown" Grid.ColumnSpan="3" VerticalAlignment="Top" Background="Transparent">
+              
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
                     <Button HorizontalAlignment="Left" Style="{StaticResource WindowBarButtons}" Click="Minimize_Click">
@@ -40,8 +47,58 @@
 
                 </StackPanel>
             </Grid>
+            <components:BlurHost BlurBackground="{Binding ElementName=img}"  Grid.Column="1" Grid.RowSpan="2"
+                    BlurOpacity="1" Visibility="{Binding Visibility}">
 
-            <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentViewModel}" />
+                <Grid Background="Transparent">
+                    
+                </Grid>
+
+            </components:BlurHost>
+
+            <materialDesign:DrawerHost Grid.Column="1" Grid.RowSpan="2" x:Name="DrawerHost"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LeftDrawerBackground="Transparent" 
+                                       >
+                <materialDesign:DrawerHost.OverlayBackground>
+                    <VisualBrush Stretch="None">
+                        <VisualBrush.Visual>
+                            <Canvas Background="Transparent" Height="{Binding ElementName=frame, Path=ActualHeight}" Width="{Binding ElementName=frame, Path=ActualWidth}">
+
+                            </Canvas>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </materialDesign:DrawerHost.OverlayBackground>
+
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <Grid>
+
+                        <StackPanel Background="Transparent" Width="{Binding ElementName=frame, Path=ActualWidth}">
+                            <ToggleButton Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" IsChecked="{Binding IsChecked}"
+                                    CommandParameter="{x:Static Dock.Left}" Margin="40 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Content="{materialDesign:PackIcon Kind=ArrowLeft}" Style="{StaticResource ExpandButton}"/>
+
+                            <TextBlock Foreground="MintCream" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" Text="Dodatkowe opcje" Margin="0 0 0 15"/>
+
+                            <ToggleButton Grid.Column="1" HorizontalAlignment="Center"
+                                Content="Zaloguj" Width="302" Height="50" IsChecked="{Binding IsRegister}"
+                                Style="{StaticResource ChangeStateButton}" />
+                            <Button Width="302" Height="50"
+                                    Style="{StaticResource ChangeStateButtons}" Content="Wyczyść bazę danych i wgraj pytania" />
+                        </StackPanel>
+                    </Grid>
+
+                </materialDesign:DrawerHost.LeftDrawerContent>
+                
+                    <ToggleButton Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
+                                  Visibility="{Binding MenuVisibility}" IsChecked="{Binding IsChecked}"
+                        CommandParameter="{x:Static Dock.Left}" Margin="5 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Content="{materialDesign:PackIcon Kind=ArrowLeft}" Style="{StaticResource ExpandButton}"
+                        />
+                
+            </materialDesign:DrawerHost>
+
+
+
         </Grid>
     </Border>
 </Window>

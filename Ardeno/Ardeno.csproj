@@ -8,7 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\OpenSans\OpenSans-Bold.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-BoldItalic.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-ExtraBold.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-ExtraBoldItalic.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-Italic.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-Light.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-LightItalic.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-Regular.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-Semibold.ttf" />
+    <None Remove="Fonts\OpenSans\OpenSans-SemiboldItalic.ttf" />
     <None Remove="Images\GondorTree.png" />
+    <None Remove="Images\GondorTree_White.png" />
     <None Remove="Images\Narsil.png" />
     <None Remove="Images\Ring.png" />
     <None Remove="Images\SOMLogo.png" />
@@ -26,7 +37,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\OpenSans\OpenSans-Bold.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-BoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-ExtraBold.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-ExtraBoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-Italic.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-Light.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-LightItalic.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-Regular.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-Semibold.ttf" />
+    <Resource Include="Fonts\OpenSans\OpenSans-SemiboldItalic.ttf" />
     <Resource Include="Images\GondorTree.png" />
+    <Resource Include="Images\GondorTree_White.png" />
     <Resource Include="Images\Narsil.png" />
     <Resource Include="Images\Ring.png" />
     <Resource Include="Images\SOMLogo.png" />
