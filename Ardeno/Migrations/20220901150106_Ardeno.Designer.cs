@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ardeno.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220824155501_Ardeno")]
+    [Migration("20220901150106_Ardeno")]
     partial class Ardeno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace Ardeno.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("Done")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("FirstAnswer")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -36,8 +39,9 @@ namespace Ardeno.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("QuestionDifficulty")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("QuestionDifficulty")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("QuestionTitle")
                         .IsRequired()

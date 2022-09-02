@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ardeno.Stores;
+using Ardeno.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,42 @@ namespace Ardeno.Views
         public GameWindow()
         {
             InitializeComponent();
+
+            NavigationStore navigationStore = new();
+            navigationStore.CurrentViewModel = new GameTypeViewModel(navigationStore);
+            DataContext = new GameViewModel(navigationStore);
+
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Frame_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+            } 
+
         }
     }
 }

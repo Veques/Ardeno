@@ -3,10 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Ardeno.Views"
+        xmlns:local="clr-namespace:Ardeno.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="GameWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="GameWindow" Height="750" Width="1200" WindowStartupLocation="CenterScreen" 
+         WindowStyle="None" AllowsTransparency="True" Background="Transparent" FontFamily="{StaticResource OpenSans}">
+    <Border Background="#2A1B3D" BorderBrush="WhiteSmoke" BorderThickness="1.5" CornerRadius="10">
+        <Grid MouseDown="Grid_MouseDown" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="Transparent">
+                <TextBlock Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Foreground="White">Ardeno</TextBlock>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+
+                    <Button HorizontalAlignment="Left" Style="{StaticResource WindowBarButtons}" Click="Minimize_Click">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Width="30" Height="30"/>
+                    </Button>
+                    <Button HorizontalAlignment="Left" Style="{StaticResource WindowBarButtons}" Click="Maximize_Click">
+                        <materialDesign:PackIcon Kind="WindowMaximize" Width="30" Height="30"/>
+                    </Button>
+                    <Button HorizontalAlignment="Right" Style="{StaticResource WindowBarButtons}" Click="Exit_Click" >
+                        <materialDesign:PackIcon Kind="CloseThick" Width="30" Height="30"/>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Row="1">
+
+                <Frame Content="{Binding CurrentViewModel}" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Name="frame"/>
+
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

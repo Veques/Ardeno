@@ -1,4 +1,5 @@
-﻿using Ardeno.Stores;
+﻿using Ardeno.Services;
+using Ardeno.Stores;
 using Ardeno.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,12 @@ namespace Ardeno.Commands
         where TViewModel : BaseViewModel
     {
 
-        private readonly NavigationStore _command;
-        private readonly Func<TViewModel> _createViewModel;
+        private readonly NavigationService<TViewModel> _navigationService;
         private readonly Predicate<object> _canExecute;
 
-        public NavigationCommand(NavigationStore command, Func<TViewModel> createViewModel, Predicate<object> canExecute)
+        public NavigationCommand(NavigationService<TViewModel> navigationService, Predicate<object> canExecute)
         {
-            _command = command;
-            _createViewModel = createViewModel;
+            _navigationService = navigationService;
             _canExecute = canExecute;
         }
 
@@ -30,7 +29,7 @@ namespace Ardeno.Commands
 
         public override void Execute(object parameter)
         {
-            _command.CurrentViewModel = _createViewModel();
+            _navigationService.Navigate();
         }
     }
 }

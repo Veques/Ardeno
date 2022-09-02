@@ -3,12 +3,107 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Ardeno.Views.Pages"
+      xmlns:local="clr-namespace:Ardeno.Views.Pages" xmlns:viewmodels="clr-namespace:Ardeno.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:GameTypeViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="GameTypePage">
+      Title="GameTypePage" Foreground="WhiteSmoke">
 
-    <Grid>
-        <TextBlock>xd</TextBlock>
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="200">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button Style="{StaticResource GameModeButton}" Command="{Binding QuizClickedCommand}">
+            <TextBlock HorizontalAlignment="Center" FontSize="35" Foreground="WhiteSmoke" FontWeight="DemiBold">Quiz</TextBlock>
+        </Button>
+        
+        <Button Grid.Column="1" Style="{StaticResource GameModeButton}" Command="{Binding NavigateLotrle}">
+            <TextBlock HorizontalAlignment="Center" FontSize="35" Foreground="WhiteSmoke" FontWeight="DemiBold">Lotrle</TextBlock>
+        </Button>
+        
+        <!-- Difficulty Buttons -->
+        <Button Visibility="{Binding DifficultyQuizVisibility}" Background="Yellow" Foreground="Black" Command="{Binding CheckDifficulty}"       CommandParameter="Medium" Content="Medium" Height="183" Padding="0" HorizontalAlignment="Left">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource DifficultyButtonStyle}">
+                    <Setter Property="Width" Value="90"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StartAnimationQuiz}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource MediumAnimationQuiz}"/>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource MediumBackAnimationQuiz}"/>
+                            </DataTrigger.ExitActions>
+
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Visibility="{Binding DifficultyQuizVisibility}" Background="Green"  Command="{Binding CheckDifficulty}"                            CommandParameter="Easy" Content="Easy" Width="175" Height="50" VerticalAlignment="Top" >
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource DifficultyButtonStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StartAnimationQuiz}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource EasyAnimationQuiz}"/>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource EasyBackAnimationQuiz}"/>
+                            </DataTrigger.ExitActions>
+
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Visibility="{Binding DifficultyQuizVisibility}" Background="Red" Command="{Binding CheckDifficulty}"
+                CommandParameter="Hard" Content="Hard" Width="175" Height="50" VerticalAlignment="Bottom">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource DifficultyButtonStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StartAnimationQuiz}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource HardAnimationQuiz}"/>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HardBackAnimationQuiz}"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
     </Grid>
 </Page>

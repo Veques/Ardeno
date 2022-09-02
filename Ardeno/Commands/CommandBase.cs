@@ -7,7 +7,10 @@ namespace Ardeno.Commands
     {
         public event EventHandler? CanExecuteChanged;
 
-        public abstract bool CanExecute(object? parameter);
+        public virtual bool CanExecute(object? parameter)
+        {
+            return CanExecute(parameter);
+        }
 
         public abstract void Execute(object? parameter);
 

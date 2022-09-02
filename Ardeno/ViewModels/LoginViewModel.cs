@@ -19,15 +19,13 @@ namespace Ardeno.ViewModels
     {
         private readonly ApplicationDbContext db = new();
         public ICommand LogInCommand { get; set; }
-        public ICommand NavigateGamePage { get; set; }
         public LoginViewModel(NavigationStore navigationStore)
         {
 
             LogInCommand = new RelayCommand(x => Login(),
                                             x => !string.IsNullOrEmpty(_username) && 
                                                  !string.IsNullOrEmpty(_password));
-            NavigateGamePage = new NavigationCommand<GameTypeViewModel>(navigationStore,
-                () => new GameTypeViewModel(navigationStore), x => true);
+
         }
 
         #region Login

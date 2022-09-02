@@ -82,7 +82,7 @@
                             <ToggleButton Grid.Column="1" HorizontalAlignment="Center"
                                 Content="Zaloguj" Width="302" Height="50" IsChecked="{Binding IsRegister}"
                                 Style="{StaticResource ChangeStateButton}" />
-                            <Button Width="302" Height="50"
+                            <Button Width="302" Height="50" IsEnabled="True" Command="{Binding ManageDatabaseCommand}"
                                     Style="{StaticResource ChangeStateButtons}" Content="Wyczyść bazę danych i wgraj pytania" />
                         </StackPanel>
                     </Grid>

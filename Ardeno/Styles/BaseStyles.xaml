@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:components="clr-namespace:Ardeno.Helpers.Components">
-    
-    
+
+
     <!-- WindowButtons -->
     <Style x:Key="WindowBarButtons" TargetType="{x:Type Button}">
         <Setter Property="Width" Value="40"/>
@@ -49,13 +49,13 @@
     <Style x:Key="LoginTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
 
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="OrangeRed"/>       
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="OrangeRed"/>
         <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="FontSize" Value="18"/>
 
     </Style>
-    
+
     <!-- Login Flip Animation -->
     <Storyboard x:Key="FlipAnimation">
         <Storyboard x:Name="ImageFlip">
@@ -89,7 +89,7 @@
         <Setter Property="Background" Value="{DynamicResource ThemeColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
-        
+
         <Setter Property="Height" Value="50"/>
         <Setter Property="Width" Value="150"/>
 
@@ -146,7 +146,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- RevertCardButton -->
     <Style x:Key="RevertCardButton" TargetType="Button">
         <Setter Property="Foreground" Value="{DynamicResource ThemeColor}"/>
@@ -155,7 +155,7 @@
         <Setter Property="Height" Value="40"/>
         <Setter Property="Width" Value="15"/>
         <Setter Property="Padding" Value="0"/>
-       
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -192,7 +192,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- Toggle SignIn Style -->
     <Style x:Key="ChangeStateButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="BorderThickness" Value="1"/>
@@ -509,7 +509,6 @@
 
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="OverridesDefaultStyle" Value="False"/>
-        <Setter Property="BorderThickness" Value="0 0 0 1"/>
         <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="OrangeRed"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Padding" Value="0 4 0 4"/>
@@ -519,7 +518,87 @@
 
     </Style>
 
+    <!-- GameModes Styles -->
+    <Style x:Key="GameModeButton" TargetType="Button">
+        <Setter Property="Margin" Value="5 0"/>
+        <Setter Property="Background" Value="#3D225F"/>
 
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" BorderThickness="4" CornerRadius="13">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+                                <Style.Triggers>
+                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                        <Setter Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect BlurRadius="15" ShadowDepth="2" Color="{DynamicResource LW_onHoverShadow}"  Opacity="0.25"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ThicknessAnimation Duration="0:0:0.200" To="0" 
+                                                            Storyboard.TargetProperty="BorderThickness"  />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ThicknessAnimation Duration="0:0:0.200" To="4" 
+                                                            Storyboard.TargetProperty="BorderThickness" FillBehavior="HoldEnd" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" Value="Gray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="BlueViolet"   />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <!-- BackButton Style -->
+    <Style x:Key="BackButton" TargetType="Button" BasedOn="{StaticResource GameModeButton}">
+
+        <Setter Property="Background" Value="#3D225F"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Height" Value="100"/>
+    </Style>
+
+    <!-- QuizButtons Style -->
+    <Style x:Key="QuizButtons" TargetType="Button" BasedOn="{StaticResource GameModeButton}">
+
+        <Setter Property="Background" Value="#3D225F"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Padding" Value="4"/>
+    </Style>
+
+    <!-- Difficulty Styles -->
+    <Style x:Key="DifficultyButtonStyle" TargetType="Button" BasedOn="{StaticResource QuizButtons}">
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+    
     <!-- Animations -->
 
     <!-- SuccesRegistrationAnimation -->
@@ -548,6 +627,125 @@
         </ColorAnimationUsingKeyFrames>
     </Storyboard>
 
+    <!-- DifficultyQuizAnimations -->
+    <Storyboard x:Key="HardAnimationQuiz">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="53">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="EasyAnimationQuiz">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-53">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="MediumAnimationQuiz" SlipBehavior="Grow">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-88">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
 
+    <Storyboard x:Key="HardBackAnimationQuiz">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="EasyBackAnimationQuiz">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="MediumBackAnimationQuiz" SlipBehavior="Grow">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    
+    <!-- Quizz Answers -->
+    <Storyboard x:Key="CorrectAnswer">
+        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+            <EasingColorKeyFrame KeyTime="00:00:00.5" Value="#118911"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="NeutralAnswer">
+        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+            <EasingColorKeyFrame KeyTime="00:00:00.5" Value="#3D225F"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="WrongAnswer">
+        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+            <EasingColorKeyFrame KeyTime="00:00:00.5" Value="red"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
 
 </ResourceDictionary>

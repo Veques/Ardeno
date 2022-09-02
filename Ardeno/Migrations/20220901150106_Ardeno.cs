@@ -14,13 +14,14 @@ namespace Ardeno.Migrations
                 {
                     QuestionId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    QuestionDifficulty = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuestionDifficulty = table.Column<string>(type: "TEXT", nullable: false),
                     QuestionTitle = table.Column<string>(type: "TEXT", nullable: false),
                     FirstAnswer = table.Column<string>(type: "TEXT", nullable: false),
                     SecondAnswer = table.Column<string>(type: "TEXT", nullable: false),
                     ThirdAnswer = table.Column<string>(type: "TEXT", nullable: false),
                     FourthAnswer = table.Column<string>(type: "TEXT", nullable: false),
-                    CorrectAnswer = table.Column<string>(type: "TEXT", nullable: false)
+                    CorrectAnswer = table.Column<string>(type: "TEXT", nullable: false),
+                    Done = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
