@@ -1,0 +1,44 @@
+﻿<Window x:Class="Ardeno.Views.InformationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ardeno.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="InformationWindow" Height="350" Width="300" WindowStyle="None" Background="Transparent"
+        AllowsTransparency="True" FontFamily="{StaticResource OpenSans}" Foreground="WhiteSmoke" WindowStartupLocation="CenterScreen">
+    <Border Background="#2A1B3D" BorderThickness="1" BorderBrush="WhiteSmoke" CornerRadius="5" >
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="DemiBold" 
+                       FontSize="18">Instrukcja gry</TextBlock>
+            <Button Style="{StaticResource WindowBarButtons}" VerticalAlignment="Top" HorizontalAlignment="Right" Height="25" Width="25"
+                    Click="Button_Click">
+                <materialDesign:PackIcon Kind="CancelThick" Width="25" Height="25"/>
+            </Button>
+
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                Gra polega na zgadnięciu słowa. Gra jest nieco trudniejsza niż klasyczne Wordle z powodu, że słowa są różniej długości, a nie jak w przypadku klasycznej gry, zawsze na 5 liter. W celu ułatwienia wprowadzony jest możliwość uzyskania wskazówki.
+            </TextBlock>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Width="280">
+                <Button Style="{StaticResource LotrleButtons}" Background="#DFAE0C" Content="A"/>
+                <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Right" Width="200"> Pomarańczowe tło oznacza że dana litera znajduje się w słowie, jednak na innym miejscu niż została  podana</TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200"> Zielone tło oznacza że dana litera znajduje się w słowie, w tym samym miejscu w którym została podana</TextBlock>
+                <Button Style="{StaticResource LotrleButtons}" HorizontalAlignment="Right" Background="DarkGreen" Content="A"/>
+            </StackPanel>
+
+            <TextBlock FontWeight="DemiBold" Text="Powodzenia!" FontSize="21" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3"/>
+        </Grid>
+    </Border>
+</Window>
+

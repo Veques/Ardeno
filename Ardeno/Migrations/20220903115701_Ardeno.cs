@@ -42,6 +42,20 @@ namespace Ardeno.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Words",
+                columns: table => new
+                {
+                    WordId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CurrentWord = table.Column<string>(type: "TEXT", nullable: false),
+                    Done = table.Column<double>(type: "REAL", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Words", x => x.WordId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -51,6 +65,9 @@ namespace Ardeno.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Words");
         }
     }
 }

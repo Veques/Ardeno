@@ -3,6 +3,8 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:components="clr-namespace:Ardeno.Helpers.Components">
 
+    <!-- CTRL + L, CTRL + M for better view -->
+    
 
     <!-- WindowButtons -->
     <Style x:Key="WindowBarButtons" TargetType="{x:Type Button}">
@@ -522,6 +524,7 @@
     <Style x:Key="GameModeButton" TargetType="Button">
         <Setter Property="Margin" Value="5 0"/>
         <Setter Property="Background" Value="#3D225F"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -598,6 +601,23 @@
     <Style x:Key="DifficultyButtonStyle" TargetType="Button" BasedOn="{StaticResource QuizButtons}">
         <Setter Property="FontSize" Value="15"/>
     </Style>
+    
+    <!-- Lotrle Buttons Style -->
+    <Style x:Key="LotrleButtons" TargetType="Button">
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Height" Value="62"/>
+        <Setter Property="Background" Value="#3D225F"/>
+        <Setter Property="BorderThickness" Value=".6"/>
+        <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="23"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Margin" Value="3 3"/>
+
+
+    </Style>
+    
+    
     
     <!-- Animations -->
 
@@ -745,6 +765,43 @@
     <Storyboard x:Key="WrongAnswer">
         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
             <EasingColorKeyFrame KeyTime="00:00:00.5" Value="red"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+    
+    <!-- Lotrle Shake Animation -->
+    <Storyboard x:Key="InputAnimation">
+        <ThicknessAnimation Duration="0:0:0.350" To="5" Storyboard.TargetProperty="BorderThickness" />
+        <ThicknessAnimation Duration="0:0:0.550" To=".6" Storyboard.TargetProperty="BorderThickness" />
+    </Storyboard>
+    
+    <!-- Lotrle Color Animations -->
+    <Storyboard x:Key="OrangeLetter">
+        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)">
+            <EasingColorKeyFrame KeyTime="00:00:00" Value="#3D225F">
+                <EasingColorKeyFrame.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </EasingColorKeyFrame.EasingFunction>
+            </EasingColorKeyFrame>
+            <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#DFAE0C">
+                <EasingColorKeyFrame.EasingFunction>
+                    <QuadraticEase EasingMode="EaseIn"/>
+                </EasingColorKeyFrame.EasingFunction>
+            </EasingColorKeyFrame>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="GreenLetter">
+        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)">
+            <EasingColorKeyFrame KeyTime="00:00:00" Value="#3D225F">
+                <EasingColorKeyFrame.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </EasingColorKeyFrame.EasingFunction>
+            </EasingColorKeyFrame>
+            <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="DarkGreen">
+                <EasingColorKeyFrame.EasingFunction>
+                    <QuadraticEase EasingMode="EaseIn"/>
+                </EasingColorKeyFrame.EasingFunction>
+            </EasingColorKeyFrame>
         </ColorAnimationUsingKeyFrames>
     </Storyboard>
 

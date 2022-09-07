@@ -52,6 +52,7 @@ namespace Ardeno.ViewModels
             {
                 db.Users.RemoveRange(db.Users);
                 db.Questions.RemoveRange(db.Questions);
+                db.Words.RemoveRange(db.Words);
             }
             catch { }
 
@@ -60,10 +61,56 @@ namespace Ardeno.ViewModels
                 MessageBox.Show("Wyszczono");
             }
 
-            FillDatabase();
+            FillDatabaseQuiz();
+            FillDatabaseLotrle();
+            if (db.SaveChanges() > 0)
+            {
+                MessageBox.Show("Dodano pytania z pliku Excel");
+            }
         }
 
-        private void FillDatabase()
+        private void FillDatabaseLotrle()
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Helpers\Lotrle.xlsx");
+            try
+            {
+                OleDbConnection connection = new((@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties='Excel 12.0;HDR=YES;IMEX=1;';"));
+                connection.Open();
+                OleDbCommand command = new("SELECT * FROM [" + "Arkusz1" + "$]", connection);
+                DataTable Data = new();
+                OleDbDataAdapter adapter = new(command);
+                adapter.Fill(Data);
+                connection.Close();
+                for (int i = Data.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (Data.Rows[i][0].ToString() == String.Empty)
+                    {
+                        Data.Rows.RemoveAt(i);
+                    }
+                }
+                List<Word> list = new();
+
+                list = (from DataRow dr in Data.Rows
+                        select new Word()
+                        {
+                             CurrentWord = dr["Word"].ToString().ToUpper(),
+                             Done = 0
+
+                        }).ToList();
+
+                foreach (Word item in list)
+                {
+                    db.Words.Add(item);
+                }
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show("Coś poszło nie tak");
+
+            }
+        }
+
+        private void FillDatabaseQuiz()
         {
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Helpers\Quizz.xlsx");
             try
@@ -94,17 +141,13 @@ namespace Ardeno.ViewModels
                             ThirdAnswer = dr["Answer3"].ToString(),
                             FourthAnswer = dr["Answer4"].ToString(),
                             CorrectAnswer = dr["CorrectAnswer"].ToString(),
-                            Done = (double)dr["Done"]
+                            Done = 0
 
                         }).ToList();
 
                 foreach (Question item in list)
                 {
                     db.Questions.Add(item);
-                }
-                if (db.SaveChanges() > 0)
-                {
-                    MessageBox.Show("Dodano [ytania z pliku Excel");
                 }
 
             }

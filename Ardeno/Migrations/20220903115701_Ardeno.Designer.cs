@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ardeno.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220901150106_Ardeno")]
+    [Migration("20220903115701_Ardeno")]
     partial class Ardeno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,24 @@ namespace Ardeno.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Ardeno.Models.Word", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Row1")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Done")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("Words");
                 });
 #pragma warning restore 612, 618
         }

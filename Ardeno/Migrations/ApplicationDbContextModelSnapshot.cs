@@ -79,6 +79,24 @@ namespace Ardeno.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("Ardeno.Models.Word", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Row1")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Done")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("Words");
+                });
 #pragma warning restore 612, 618
         }
     }
