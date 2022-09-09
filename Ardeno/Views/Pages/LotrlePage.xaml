@@ -57,7 +57,12 @@
                 <Button Width="60" Height="60" Style="{StaticResource GameModeButton}" Command="{Binding InformationCommand}">
                     <materialDesign:PackIcon Kind="InformationVariant" Width="40" Height="40"/>
                 </Button>
-                
+
+                <TextBlock Foreground="WhiteSmoke" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" TextWrapping="Wrap" 
+                           Text="{Binding Hint}" FontWeight="DemiBold"
+                           Margin="0 50 0 0" FontSize="25"/>
+
             </StackPanel>
         </Grid>
 

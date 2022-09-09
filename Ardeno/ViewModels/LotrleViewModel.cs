@@ -21,12 +21,14 @@ using System.Xml.Linq;
 
 namespace Ardeno.ViewModels
 {
+    #region Model
     public class Letters
     {
         public int Column { get; set; }
         public int Row { get; set; }
         public Button Button { get; set; }
     }
+    #endregion
     public class LotrleViewModel : BaseViewModel
     {
         #region Fields
@@ -64,32 +66,31 @@ namespace Ardeno.ViewModels
                 navigationStore, () => new GameTypeViewModel(navigationStore)), x => true);
             AnotherWordCommand = new RelayCommand(x => AnotherWord(), x => true);
 
-            HintCommand = new RelayCommand(x => Hint(), x => true);
+            HintCommand = new RelayCommand(x => GetHint(), x => true);
             InformationCommand = new RelayCommand(x => InformationWindow(), x => true);
 
-
-            _currentRow = 1;
-            _currentColumn = 1;
             LoadNewGame();
         }
 
+
+        #endregion
         private void InformationWindow()
         {
             InformationWindow window = new();
             window.ShowDialog();
         }
 
-        #endregion
-
-        private void Hint()
+        private void GetHint()
         {
-
+            Hint = db.Words.Single(x => x.CurrentWord == _currentWord).Hint;
         }
 
+        #region GameMethods
         private void AnotherWord()
         {
             db.Words.FirstOrDefault(x => x.CurrentWord == _currentWord).Done = 1;
             db.SaveChanges();
+            Hint = string.Empty;
             LoadNewGame();
         }
 
@@ -97,8 +98,9 @@ namespace Ardeno.ViewModels
         {
             GetNewWord();
             LoadGridAsync();
+            _currentColumn = 1;
+            _currentRow = 1;
         }
-
 
         private async void Play(string letter)
         {
@@ -191,7 +193,6 @@ namespace Ardeno.ViewModels
 
         }
 
-        //Load Grid for word
         private async void LoadGridAsync()
         {
             Letters = new();
@@ -208,9 +209,9 @@ namespace Ardeno.ViewModels
                     });
                 }
             }
+            Hint = string.Empty;
         }
 
-        //Letter from view
         private void GetLetter(object parameter)
         {
             var letter = (parameter as KeyEventArgs).Key.ToString().ToUpper();
@@ -243,6 +244,8 @@ namespace Ardeno.ViewModels
             AnimationCalled?.Invoke(this, EventArgs.Empty);
         }
 
+        #endregion
+
         #region Properties
 
         private ObservableCollection<Letters> _letters;
@@ -255,6 +258,17 @@ namespace Ardeno.ViewModels
                 OnPropertyChanged(nameof(Letters));
             }
         }
+
+        private string _hint;
+
+        public string Hint
+        {
+            get { return _hint; }
+            set { _hint = value;
+                OnPropertyChanged(nameof(Hint));
+            }
+        }
+
 
         #endregion
     }

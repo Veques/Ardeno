@@ -5,7 +5,7 @@
              xmlns:ViewModels="clr-namespace:Ardeno.ViewModels"
              xmlns:Views="clr-namespace:Ardeno.Views.Pages"
              xmlns:MainView="clr-namespace:Ardeno.Views"
-             StartupUri="Views/GameWindow.xaml">
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
 
         <ResourceDictionary>

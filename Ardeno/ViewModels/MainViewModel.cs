@@ -94,6 +94,7 @@ namespace Ardeno.ViewModels
                         select new Word()
                         {
                              CurrentWord = dr["Word"].ToString().ToUpper(),
+                             Hint = dr["Hint"] == null ? string.Empty : dr["Hint"].ToString() ,
                              Done = 0
 
                         }).ToList();

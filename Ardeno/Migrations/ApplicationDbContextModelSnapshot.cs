@@ -86,12 +86,16 @@ namespace Ardeno.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Row1")
+                    b.Property<string>("CurrentWord")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Done")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("Hint")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("WordId");
 

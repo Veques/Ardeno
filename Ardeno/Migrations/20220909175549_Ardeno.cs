@@ -50,6 +50,7 @@ namespace Ardeno.Migrations
                     WordId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CurrentWord = table.Column<string>(type: "TEXT", nullable: false),
+                    Hint = table.Column<string>(type: "TEXT", nullable: false),
                     Done = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
