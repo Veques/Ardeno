@@ -14,58 +14,58 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace Ardeno.ViewModels
 {
     public class QuizViewModel : BaseViewModel
     {
+
+        #region Fields
         private readonly ApplicationDbContext db = new();
 
         private Question _currentQuestion;
-
         private readonly string _difficulty;
-        private Timer timer;
+        private bool _gameStarted = false;
+
 
         public ICommand NavigateBack { get; set; }
         public ICommand NextQuestion { get; set; }
         public ICommand CheckCommand { get; set; }
-        public QuizViewModel(String parameter, NavigationStore navigationStore)
+        public ICommand StartCommand { get; set; }
+
+        #endregion
+
+        #region Constructor
+        public QuizViewModel(string parameter, NavigationStore navigationStore)
         {
             _difficulty = parameter;
-
 
             NavigateBack = new NavigationCommand<GameTypeViewModel>(new NavigationService<GameTypeViewModel>(
                 navigationStore, () => new GameTypeViewModel(navigationStore)), x => true);
 
             NextQuestion = new RelayCommand(x => AnotherQuestion(), x => true);
-            CheckCommand = new RelayCommand(CheckQuestion, x => true);
+            CheckCommand = new RelayCommand(CheckQuestion, x => _gameStarted);
+            StartCommand = new RelayCommand(x => StartGame(), x => true);
 
-            LoadNewQuestion(parameter);
         }
 
-        //private void Timer()
-        //{
-        //    Task.Run(async () =>
-        //    {
-
-        //        for (int i = 0; i <= 1000; i++)
-        //        {
-        //            ProgressBarValue = i;
-        //            i++;
-        //            await Task.Delay(100);
-        //        }
-        //    });
-        //}
-
+        #endregion
 
         #region QuizMethods
-        private void LoadNewQuestion(String difficulty)
+        private void StartGame()
         {
-            //var random = new Random();
-            //var generatedId = random.Next(1, db.Questions.Where(x => x.QuestionDifficulty == difficulty).Count() - 1);
+            StartVisibility = Visibility.Hidden;
+            ProgressBarVisibility = Visibility.Visible;
+            _gameStarted = true;
+            LoadNewQuestion(_difficulty);
+
+        }
+        private void LoadNewQuestion(string difficulty)
+        {
             CheckIfAllDone();
-            //Timer();
 
             var row = db.Questions.Where(x => x.QuestionDifficulty == difficulty && x.Done == 0).FirstOrDefault();
 
@@ -76,7 +76,7 @@ namespace Ardeno.ViewModels
             Answer4 = row.FourthAnswer;
 
             _currentQuestion = row;
-
+            IsAnimating = true;
         }
         private void AnotherQuestion()
         {
@@ -87,9 +87,10 @@ namespace Ardeno.ViewModels
 
             _currentQuestion.Done = 1;
             db.SaveChanges();
-            LoadNewQuestion(_difficulty);
+            IsAnimating = false;
+            ShowRightAnswer(_currentQuestion.CorrectAnswer);
+            ResetButtonsAndStartGame();
         }
-
         private void CheckIfAllDone()
         {
             if(!db.Questions.Any(x => x.Done == 0 && x.QuestionDifficulty == _difficulty))
@@ -101,7 +102,6 @@ namespace Ardeno.ViewModels
                     db.SaveChanges();
             }
         }
-
         private void CheckQuestion(object parameter)
         {
             var clickedButton = parameter as String;
@@ -174,10 +174,14 @@ namespace Ardeno.ViewModels
                     }
                     break;
             }
-
+            IsAnimating = false;
             _currentQuestion.Done = 1;
 
              db.SaveChanges();
+            ResetButtonsAndStartGame();
+        }
+        private void ResetButtonsAndStartGame()
+        {
             Task.Run(() =>
             {
                 Thread.Sleep(1000);
@@ -186,14 +190,13 @@ namespace Ardeno.ViewModels
                 IsCorrect3 = 0;
                 IsCorrect4 = 0;
                 LoadNewQuestion(_difficulty);
-            });
-
-
-            //Thread.Sleep(1000);
+    });
         }
 
         private void ShowRightAnswer(string correctAnswer)
         {
+            if (correctAnswer == null) return;
+
             if (correctAnswer.Equals(Answer1))
             {
                 IsCorrect1 = 1;
@@ -223,7 +226,12 @@ namespace Ardeno.ViewModels
                 IsCorrect4 = 1;
             }
         }
-
+        public void OnProgressBarAnimationFinish()
+        {
+            //getting called from view on AnimationFinish
+            ShowRightAnswer(_currentQuestion.CorrectAnswer);
+            IsAnimating = false;
+        }
         #endregion
 
         #region Properties
@@ -332,13 +340,35 @@ namespace Ardeno.ViewModels
             }
         }
 
-        private int _progressBar;
+        private bool _isAnimating;
 
-        public int ProgressBarValue
+        public bool IsAnimating
         {
-            get { return _progressBar; }
-            set { _progressBar = value;
-                OnPropertyChanged(nameof(ProgressBarValue));
+            get { return _isAnimating; }
+            set { _isAnimating = value;
+                OnPropertyChanged(nameof(IsAnimating));
+            }
+        }
+
+        private Visibility _startVisibility = Visibility.Visible;
+
+        public Visibility StartVisibility
+        {
+            get { return _startVisibility; }
+            set { _startVisibility = value;
+                OnPropertyChanged(nameof(StartVisibility));
+            }
+        }
+
+        private Visibility _progressBarVisiblity = Visibility.Collapsed;
+
+        public Visibility ProgressBarVisibility
+        {
+            get { return _progressBarVisiblity; }
+            set
+            {
+                _progressBarVisiblity = value;
+                OnPropertyChanged(nameof(ProgressBarVisibility));
             }
         }
 
