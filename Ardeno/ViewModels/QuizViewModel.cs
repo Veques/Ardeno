@@ -111,7 +111,7 @@ namespace Ardeno.ViewModels
 
             switch (clickedButton)
             {
-
+                //animations State
                 //1 - tak , 2 - nie
                 case "Button1":
                     {
@@ -121,6 +121,8 @@ namespace Ardeno.ViewModels
                             IsCorrect2 = 2;
                             IsCorrect3 = 2;
                             IsCorrect4 = 2;
+                            AddPoints();
+                            PointsVisibility = Visibility.Visible;
                         }
                         else
                         {
@@ -136,6 +138,8 @@ namespace Ardeno.ViewModels
                             IsCorrect2 = 1;
                             IsCorrect3 = 2;
                             IsCorrect4 = 2;
+                            AddPoints();
+                            PointsVisibility = Visibility.Visible;
                         }
                         else
                         {
@@ -151,6 +155,8 @@ namespace Ardeno.ViewModels
                             IsCorrect2 = 2;
                             IsCorrect3 = 1;
                             IsCorrect4 = 2;
+                            AddPoints();
+                            PointsVisibility = Visibility.Visible;
                         }
                         else
                         {
@@ -166,6 +172,10 @@ namespace Ardeno.ViewModels
                             IsCorrect2 = 2;
                             IsCorrect3 = 2;
                             IsCorrect4 = 1;
+
+                            AddPoints();
+                            PointsVisibility = Visibility.Visible;
+
                         }
                         else
                         {
@@ -180,6 +190,15 @@ namespace Ardeno.ViewModels
              db.SaveChanges();
             ResetButtonsAndStartGame();
         }
+
+        private void AddPoints()
+        {
+            var loggedUser = LoginViewModel.LoggedUser;
+
+            db.Users.Single(x => x.Username == loggedUser).QuizScore += 5;
+
+            db.SaveChanges();
+        }
         private void ResetButtonsAndStartGame()
         {
             Task.Run(() =>
@@ -189,6 +208,7 @@ namespace Ardeno.ViewModels
                 IsCorrect2 = 0;
                 IsCorrect3 = 0;
                 IsCorrect4 = 0;
+                PointsVisibility = Visibility.Hidden;
                 LoadNewQuestion(_difficulty);
     });
         }
@@ -369,6 +389,16 @@ namespace Ardeno.ViewModels
             {
                 _progressBarVisiblity = value;
                 OnPropertyChanged(nameof(ProgressBarVisibility));
+            }
+        }
+
+        private Visibility _pointsVisibility = Visibility.Collapsed;
+
+        public Visibility PointsVisibility
+        {
+            get { return _pointsVisibility; }
+            set { _pointsVisibility = value;
+                OnPropertyChanged(nameof(PointsVisibility));
             }
         }
 

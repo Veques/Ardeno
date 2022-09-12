@@ -29,6 +29,22 @@
 
         </Button>
 
+        <TextBlock Foreground="Gold" Text="+10" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center"
+                   FontWeight="DemiBold" Visibility="{Binding PointsVisibility}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PointsVisibility}" Value="Visible">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource PointsOpacity}"/>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
         <Grid Grid.Column="1">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 

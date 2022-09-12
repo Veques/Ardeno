@@ -16,28 +16,38 @@ namespace Ardeno.ViewModels
 {
     public class GameTypeViewModel : BaseViewModel
     {
+        #region Fields
         public string QuizDifficulty { get; set; }
         public ICommand NavigateLotrle { get; set; }
         public ICommand NavigateQuiz { get; set; }
+        public ICommand NavigateScoreboard { get; set; }
         public ICommand CheckDifficulty { get; set; }
         public ICommand QuizClickedCommand { get; set; }
+
+        #endregion
+
+        #region Constructor
         public GameTypeViewModel(NavigationStore navigationStore)
         {
             ParameterNavigationService<String, QuizViewModel> NavigateWithParameter = new(navigationStore, (parameter) => new QuizViewModel(parameter, navigationStore));
 
             NavigateLotrle = new NavigationCommand<LotrleViewModel>(new NavigationService<LotrleViewModel>(
-                navigationStore, () => new LotrleViewModel(navigationStore)), x => true);
+                navigationStore, () => new LotrleViewModel(navigationStore)), x => true);            
+            
+            NavigateScoreboard = new NavigationCommand<ScoreboardViewModel>(new NavigationService<ScoreboardViewModel>(
+                navigationStore, () => new ScoreboardViewModel(navigationStore)), x => true);
 
             NavigateQuiz = new PassDifficultyNavigationCommand(NavigateWithParameter, this);
 
             QuizClickedCommand = new RelayCommand(x => ShowDifficulty(), x => true);
 
             CheckDifficulty = new RelayCommand(ChooseDifficultyQuiz, x => true);
-
         }
-        
 
-    private void ChooseDifficultyQuiz(object parameter)
+        #endregion
+
+        #region Methods
+        private void ChooseDifficultyQuiz(object parameter)
     {
         var difficulty = parameter as String;
 
@@ -73,6 +83,7 @@ namespace Ardeno.ViewModels
             StartAnimationQuiz ^= true;
         }
 
+        #endregion
 
         #region Properties
         private bool _quizzAnimation = false;

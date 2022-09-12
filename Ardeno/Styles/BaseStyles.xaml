@@ -637,9 +637,49 @@
 
 
     </Style>
-    
-    
-    
+
+    <Style x:Key="DataGrid" TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="BorderBrush" Value="red"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="RowDetailsVisibilityMode" Value="Visible"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Width" Value="auto"/>
+        <Setter Property="Background" Value="#3D225F"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+    </Style>
+
+    <Style x:Key="CellStyle" TargetType="DataGridCell" 
+           BasedOn="{StaticResource MaterialDesignDataGridCell}">
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="DataGridHeader" TargetType="DataGridColumnHeader" 
+           BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
+
+    </Style>
+    <Style x:Key="DataGridColumnStyle" TargetType="TextBlock">
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+    </Style>
+
+
     <!-- Animations -->
 
     <!-- SuccesRegistrationAnimation -->
@@ -825,6 +865,16 @@
             </EasingColorKeyFrame>
         </ColorAnimationUsingKeyFrames>
     </Storyboard>
-     
+
+    <Storyboard x:Key="PointsOpacity" >
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.4" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
 
 </ResourceDictionary>

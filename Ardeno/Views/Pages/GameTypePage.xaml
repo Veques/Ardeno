@@ -8,8 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GameTypePage" Foreground="WhiteSmoke">
 
-
+    <Grid>
+        
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="200">
+
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -105,5 +107,12 @@
         </Button>
 
 
+    </Grid>
+        <Grid VerticalAlignment="Bottom" Margin="0 10">
+            <Button Width="400" Height="40" Content="Tablica Wyników" 
+                    Style="{StaticResource GameModeButton}"
+                    Command="{Binding NavigateScoreboard}"/>
+        </Grid>
+        
     </Grid>
 </Page>

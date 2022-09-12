@@ -37,6 +37,8 @@ namespace Ardeno.ViewModels
                 return;
             }
 
+            LoggedUser = Username;
+
             GameWindow gameWindow = new()
             {
                 Name = "GameWindow"
@@ -55,6 +57,9 @@ namespace Ardeno.ViewModels
         #endregion
 
         #region Properties
+
+        public static string LoggedUser { get; private set; }
+
         private string _username;
 
         public string Username

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ardeno.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220909175549_Ardeno")]
+    [Migration("20220909205237_Ardeno")]
     partial class Ardeno
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,11 +66,14 @@ namespace Ardeno.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("LotrleScore")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Score")
+                    b.Property<int>("QuizScore")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")

@@ -64,11 +64,14 @@ namespace Ardeno.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("LotrleScore")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Score")
+                    b.Property<int>("QuizScore")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")

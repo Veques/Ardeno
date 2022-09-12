@@ -3,21 +3,14 @@ using Ardeno.Models;
 using Ardeno.Services;
 using Ardeno.Stores;
 using Ardeno.Views;
-using Ardeno.Views.Pages;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Dynamic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Xml.Linq;
 
 namespace Ardeno.ViewModels
 {
@@ -74,16 +67,6 @@ namespace Ardeno.ViewModels
 
 
         #endregion
-        private void InformationWindow()
-        {
-            InformationWindow window = new();
-            window.ShowDialog();
-        }
-
-        private void GetHint()
-        {
-            Hint = db.Words.Single(x => x.CurrentWord == _currentWord).Hint;
-        }
 
         #region GameMethods
         private void AnotherWord()
@@ -93,16 +76,15 @@ namespace Ardeno.ViewModels
             Hint = string.Empty;
             LoadNewGame();
         }
-
         private void LoadNewGame()
         {
+            PointsVisibility = Visibility.Hidden;
             GetNewWord();
             LoadGridAsync();
             _currentColumn = 1;
             _currentRow = 1;
         }
-
-        private async void Play(string letter)
+        private void Play(string letter)
         {
            
             //Dynamic button change
@@ -169,6 +151,7 @@ namespace Ardeno.ViewModels
                     db.Words.Single(x => x.CurrentWord == word).Done = 1;
                     db.SaveChanges();
                     _hasEnded = true;
+                    AddPoints();
                     return;
                 }
 
@@ -192,8 +175,17 @@ namespace Ardeno.ViewModels
             _currentColumn++;
 
         }
+        private void AddPoints()
+        {
+            var loggedUser = LoginViewModel.LoggedUser;
 
-        private async void LoadGridAsync()
+            PointsVisibility = Visibility.Visible;
+            db.Users.Single(x => x.Username == loggedUser).LotrleScore += 10;
+            db.SaveChanges();
+
+
+        }
+        private void LoadGridAsync()
         {
             Letters = new();
 
@@ -211,21 +203,18 @@ namespace Ardeno.ViewModels
             }
             Hint = string.Empty;
         }
-
-        private void GetLetter(object parameter)
+        private void GetLetter(object? parameter)
         {
             var letter = (parameter as KeyEventArgs).Key.ToString().ToUpper();
 
             Play(letter);
         }
-
         private void GetNewWord()
         {
             CheckIfAllDone();
 
             _currentWord = db.Words.FirstOrDefault(x => x.Done == 0).CurrentWord.ToUpper();
         }
-
         private void CheckIfAllDone()
         {
             if (!db.Words.Any(x => x.Done == 0))
@@ -237,8 +226,15 @@ namespace Ardeno.ViewModels
                 db.SaveChanges();
             }
         }
-
-
+        private static void InformationWindow()
+        {
+            InformationWindow window = new();
+            window.ShowDialog();
+        }
+        private void GetHint()
+        {
+            Hint = db.Words.Single(x => x.CurrentWord == _currentWord).Hint;
+        }
         protected virtual void OnAnimationCalled()
         {
             AnimationCalled?.Invoke(this, EventArgs.Empty);
@@ -266,6 +262,16 @@ namespace Ardeno.ViewModels
             get { return _hint; }
             set { _hint = value;
                 OnPropertyChanged(nameof(Hint));
+            }
+        }
+
+        private Visibility visibility = Visibility.Collapsed;
+
+        public Visibility PointsVisibility
+        {
+            get { return visibility; }
+            set { visibility = value;
+                OnPropertyChanged(nameof(PointsVisibility));
             }
         }
 

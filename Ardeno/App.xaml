@@ -32,6 +32,10 @@
             
             <DataTemplate DataType="{x:Type ViewModels:QuizViewModel}">
                 <Views:QuizPage/>
+            </DataTemplate>            
+            
+            <DataTemplate DataType="{x:Type ViewModels:ScoreboardViewModel}">
+                <Views:ScoreboardPage/>
             </DataTemplate>
 
             <FontFamily x:Key="OpenSans">pack://application:,,,/Fonts/OpenSans/#OpenSans</FontFamily>

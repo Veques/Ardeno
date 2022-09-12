@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Ardeno.Views.Pages" xmlns:viewmodels="clr-namespace:Ardeno.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:QuizViewModel}"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"   
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" FontFamily="{StaticResource OpenSans}"
       Title="QuizPage">
     <Page.Resources>
         <Storyboard x:Key="ProgressBarAnimation">
@@ -39,6 +39,9 @@
             <i:StoryboardCompletedTrigger Storyboard="{StaticResource ProgressBarAnimation}">
                 <i:CallMethodAction MethodName="OnProgressBarAnimationFinish" TargetObject="{Binding}"/>
             </i:StoryboardCompletedTrigger>
+            <!--<i:PropertyChangedTrigger Binding="{Binding PointsVisibility}">
+                <i:ControlStoryboardAction ControlStoryboardOption="Play"  Storyboard="{StaticResource PointsOpacity}"/>
+            </i:PropertyChangedTrigger>-->
         </i:Interaction.Triggers>
 
         <Grid.ColumnDefinitions>
@@ -50,6 +53,22 @@
                 Style="{StaticResource BackButton}">
             <materialDesign:PackIcon Kind="ChevronLeft" Width="70" Height="70"/>
         </Button>
+
+        <TextBlock Foreground="Gold" Text="+5" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center"
+                   FontWeight="DemiBold" Visibility="{Binding PointsVisibility}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PointsVisibility}" Value="Visible">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource PointsOpacity}"/>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
         <Grid Grid.Column="1">
 
