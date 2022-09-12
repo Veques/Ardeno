@@ -2,13 +2,8 @@
 using Ardeno.Models;
 using Ardeno.Services;
 using Ardeno.Stores;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -41,7 +36,7 @@ namespace Ardeno.ViewModels
 
         private void FillDataGrid()
         {
-            foreach(var user in db.Users)
+            foreach (var user in db.Users)
             {
                 Scores.Add(new Score
                 {
@@ -58,7 +53,9 @@ namespace Ardeno.ViewModels
         public ICollectionView ScoresCollectionView
         {
             get { return _scoresCollectionView; }
-            set { _scoresCollectionView = value;
+            set
+            {
+                _scoresCollectionView = value;
                 OnPropertyChanged(nameof(ScoresCollectionView));
             }
         }
@@ -68,7 +65,9 @@ namespace Ardeno.ViewModels
         public ObservableCollection<Score> Scores
         {
             get { return _scores; }
-            set { _scores = value;
+            set
+            {
+                _scores = value;
                 OnPropertyChanged(nameof(Scores));
             }
         }

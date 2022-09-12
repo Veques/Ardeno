@@ -21,9 +21,6 @@
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard Storyboard="{StaticResource ErrorRegistrationStorybard}"/>
                                 </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard Storyboard="{StaticResource ErrorRegistrationStorybardContinue}"/>
-                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -41,9 +38,6 @@
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard Storyboard="{StaticResource SuccessRegistrationStorybard}"/>
                                 </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard Storyboard="{StaticResource SuccessRegistrationStorybardContinue}"/>
-                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

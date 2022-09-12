@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ardeno.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="InformationWindow" Height="350" Width="300" WindowStyle="None" Background="Transparent"
+        Title="InformationWindow" Height="450" Width="350" WindowStyle="None" Background="Transparent"
         AllowsTransparency="True" FontFamily="{StaticResource OpenSans}" Foreground="WhiteSmoke" WindowStartupLocation="CenterScreen">
     <Border Background="#2A1B3D" BorderThickness="1" BorderBrush="WhiteSmoke" CornerRadius="5" >
-        <Grid Margin="8">
+        <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height=".6*"/>
+                <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.3*"/>
@@ -23,21 +24,25 @@
                 <materialDesign:PackIcon Kind="CancelThick" Width="25" Height="25"/>
             </Button>
 
-            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
-                Gra polega na zgadnięciu słowa. Gra jest nieco trudniejsza niż klasyczne Wordle z powodu, że słowa są różniej długości, a nie jak w przypadku klasycznej gry, zawsze na 5 liter. W celu ułatwienia wprowadzony jest możliwość uzyskania wskazówki.
+            <TextBlock TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="0 5">
+                Gra polega na zgadnięciu słowa. Gra jest nieco trudniejsza niż klasyczne Wordle z powodu, że słowa są różnej długości, a nie jak w przypadku klasycznej gry, zawsze na 5 liter. W celu ułatwienia wprowadzona jest możliwość uzyskania wskazówki.
             </TextBlock>
+            
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="12.5" Text="Masz 6 prób, wprowadzaj nazwy miast, postaci, broni i inne nazw własne z historii Śródziemia na końcu wiersza akceptując je klawiszem Enter. Żeby przejść do kolejnego wiersza słowo musi jednak istnieć w bazie danych, co oznacza, że te mniej popularne słowa lub słowa nieistniejące w książkach i filmach nie będą akceptowalne. Słowa są w języku polskim a spacje i łączniki nie istnieją np. spróbuj GilGalad zamiast Gil-Galad." />
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Width="280">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" >
                 <Button Style="{StaticResource LotrleButtons}" Background="#DFAE0C" Content="A"/>
-                <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Right" Width="200"> Pomarańczowe tło oznacza że dana litera znajduje się w słowie, jednak na innym miejscu niż została  podana</TextBlock>
+                <TextBlock Margin="5 0 0 0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="250"> Pomarańczowe tło oznacza że dana litera znajduje się w słowie, jednak na innym miejscu niż została  podana</TextBlock>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200"> Zielone tło oznacza że dana litera znajduje się w słowie, w tym samym miejscu w którym została podana</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0 5">
+                <TextBlock Margin="5" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250"> Zielone tło oznacza że dana litera znajduje się w słowie, w tym samym miejscu w którym została podana</TextBlock>
                 <Button Style="{StaticResource LotrleButtons}" HorizontalAlignment="Right" Background="DarkGreen" Content="A"/>
             </StackPanel>
 
-            <TextBlock FontWeight="DemiBold" Text="Powodzenia!" FontSize="21" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3"/>
+            <TextBlock Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Aby rozpocząć, naciśnij dowolony przycisk"/>
+
+            <TextBlock FontWeight="DemiBold" Text="Powodzenia!" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4"/>
         </Grid>
     </Border>
 </Window>

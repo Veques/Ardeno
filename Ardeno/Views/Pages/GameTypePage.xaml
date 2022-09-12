@@ -9,9 +9,13 @@
       Title="GameTypePage" Foreground="WhiteSmoke">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height=".9*"/>
+        </Grid.RowDefinitions>
         
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="200">
-
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -45,7 +49,7 @@
                                 <BeginStoryboard Storyboard="{StaticResource MediumAnimationQuiz}"/>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource MediumBackAnimationQuiz}"/>
+                                    <BeginStoryboard Storyboard="{StaticResource BackQuizAnimation}"/>
                             </DataTrigger.ExitActions>
 
                         </DataTrigger>
@@ -71,7 +75,7 @@
                                 <BeginStoryboard Storyboard="{StaticResource EasyAnimationQuiz}"/>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource EasyBackAnimationQuiz}"/>
+                                    <BeginStoryboard Storyboard="{StaticResource BackQuizAnimation}"/>
                             </DataTrigger.ExitActions>
 
                         </DataTrigger>
@@ -98,7 +102,7 @@
                                 <BeginStoryboard Storyboard="{StaticResource HardAnimationQuiz}"/>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HardBackAnimationQuiz}"/>
+                                <BeginStoryboard Storyboard="{StaticResource BackQuizAnimation}"/>
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
@@ -108,7 +112,11 @@
 
 
     </Grid>
-        <Grid VerticalAlignment="Bottom" Margin="0 10">
+
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontSize="36" 
+                   Grid.Row="1" FontFamily="Vivaldi" Text="{Binding Quote}" Margin="10 0"/>
+
+        <Grid VerticalAlignment="Bottom" Margin="0 10" Grid.Row="2">
             <Button Width="400" Height="40" Content="Tablica Wyników" 
                     Style="{StaticResource GameModeButton}"
                     Command="{Binding NavigateScoreboard}"/>

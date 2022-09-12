@@ -1,13 +1,9 @@
 ﻿using Ardeno.Commands;
 using Ardeno.Models;
 using Ardeno.Stores;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Ardeno.ViewModels
@@ -31,7 +27,7 @@ namespace Ardeno.ViewModels
                 ErrorAnimation = true;
                 CommunicateState = "Taki użytkownik już istnieje";
 
-                Task.Run( () => 
+                Task.Run(() =>
                 {
                     Thread.Sleep(2400);
                     CommunicateState = "";
@@ -40,7 +36,7 @@ namespace Ardeno.ViewModels
                 return;
             }
 
-            if(PasswordRegister !=  PasswordRegisterConfirm)
+            if (PasswordRegister != PasswordRegisterConfirm)
             {
                 ErrorAnimation = true;
                 CommunicateState = "Hasła się nie zgadzają";
@@ -117,9 +113,10 @@ namespace Ardeno.ViewModels
         public bool SuccessAnimation
         {
             get { return _successAnimation; }
-            set {
+            set
+            {
                 _successAnimation = value;
-                OnPropertyChanged(nameof(SuccessAnimation)); 
+                OnPropertyChanged(nameof(SuccessAnimation));
             }
         }
 
@@ -146,6 +143,7 @@ namespace Ardeno.ViewModels
                 OnPropertyChanged(nameof(CommunicateState));
             }
         }
+
 
     }
 }

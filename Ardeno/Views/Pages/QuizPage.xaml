@@ -54,7 +54,7 @@
             <materialDesign:PackIcon Kind="ChevronLeft" Width="70" Height="70"/>
         </Button>
 
-        <TextBlock Foreground="Gold" Text="+5" HorizontalAlignment="Center"
+        <TextBlock Foreground="Gold" Text="{Binding Points, StringFormat='{} + {0}'}" HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center"
                    FontWeight="DemiBold" Visibility="{Binding PointsVisibility}">
             <TextBlock.Style>

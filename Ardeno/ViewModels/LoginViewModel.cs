@@ -2,16 +2,9 @@
 using Ardeno.Models;
 using Ardeno.Stores;
 using Ardeno.Views;
-using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 
 namespace Ardeno.ViewModels
 {
@@ -23,7 +16,7 @@ namespace Ardeno.ViewModels
         {
 
             LogInCommand = new RelayCommand(x => Login(),
-                                            x => !string.IsNullOrEmpty(_username) && 
+                                            x => !string.IsNullOrEmpty(_username) &&
                                                  !string.IsNullOrEmpty(_password));
 
         }
@@ -33,7 +26,15 @@ namespace Ardeno.ViewModels
         {
             if (!db.Users.Any(x => x.Username == Username))
             {
-                MessageBox.Show("Takie konto nie istnieje");
+                CommunicateState = "Takie konto nie istnieje";
+                ErrorAnimation = true;
+                return;
+            }
+
+            if (!db.Users.Any(x => x.Username == Username && x.Password == Password))
+            {
+                ErrorAnimation = true;
+                CommunicateState = "Błędne dane";
                 return;
             }
 
@@ -81,6 +82,29 @@ namespace Ardeno.ViewModels
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
+            }
+        }
+
+        private string _communicateState;
+
+        public string CommunicateState
+        {
+            get { return _communicateState; }
+            set
+            {
+                _communicateState = value;
+                OnPropertyChanged(nameof(CommunicateState));
+            }
+        }
+        private bool _errorAnimation = false;
+
+        public bool ErrorAnimation
+        {
+            get { return _errorAnimation; }
+            set
+            {
+                _errorAnimation = value;
+                OnPropertyChanged(nameof(ErrorAnimation));
             }
         }
         #endregion

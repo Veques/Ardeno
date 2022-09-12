@@ -20,11 +20,7 @@
     <None Remove="Fonts\OpenSans\OpenSans-SemiboldItalic.ttf" />
     <None Remove="Images\GondorTree.png" />
     <None Remove="Images\GondorTree_White.png" />
-    <None Remove="Images\Narsil.png" />
-    <None Remove="Images\QuizIcon.png" />
     <None Remove="Images\Ring.png" />
-    <None Remove="Images\SOMLogo.png" />
-    <None Remove="Images\WordleIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,15 +48,7 @@
     <Resource Include="Fonts\OpenSans\OpenSans-SemiboldItalic.ttf" />
     <Resource Include="Images\GondorTree.png" />
     <Resource Include="Images\GondorTree_White.png" />
-    <Resource Include="Images\Narsil.png" />
-    <Resource Include="Images\QuizIcon.png" />
     <Resource Include="Images\Ring.png" />
-    <Resource Include="Images\SOMLogo.png" />
-    <Resource Include="Images\WordleIcon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>

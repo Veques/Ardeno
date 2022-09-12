@@ -39,6 +39,7 @@
             </DataTemplate>
 
             <FontFamily x:Key="OpenSans">pack://application:,,,/Fonts/OpenSans/#OpenSans</FontFamily>
+            <FontFamily x:Key="StayClassy">pack://application:,,,/Fonts/StayClassy/StayClassy.ttf</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

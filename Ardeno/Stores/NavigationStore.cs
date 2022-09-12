@@ -1,9 +1,5 @@
 ﻿using Ardeno.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ardeno.Stores
 {
@@ -14,15 +10,15 @@ namespace Ardeno.Stores
 
         private BaseViewModel _baseViewModel;
 
-        public BaseViewModel CurrentViewModel 
-        { 
-            get => _baseViewModel; 
+        public BaseViewModel CurrentViewModel
+        {
+            get => _baseViewModel;
             set
             {
-                _baseViewModel = value; 
+                _baseViewModel = value;
                 OnCurrentViewModelChanged();
-            } 
-            
+            }
+
         }
         private void OnCurrentViewModelChanged()
         {

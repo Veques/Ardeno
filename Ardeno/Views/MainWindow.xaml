@@ -22,8 +22,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width=".8*"/>
+                <ColumnDefinition Width=".5*"/>
                 <ColumnDefinition Width="0.9*"/>
             </Grid.ColumnDefinitions>
 
@@ -72,19 +72,19 @@
                 <materialDesign:DrawerHost.LeftDrawerContent>
                     <Grid>
 
-                        <StackPanel Background="Transparent" Width="{Binding ElementName=frame, Path=ActualWidth}">
+                        <StackPanel Background="Transparent" Width="{Binding ElementName=DrawerHost, Path=ActualWidth}">
                             <ToggleButton Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" IsChecked="{Binding IsChecked}"
                                     CommandParameter="{x:Static Dock.Left}" Margin="40 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Right"
                                     Content="{materialDesign:PackIcon Kind=ArrowLeft}" Style="{StaticResource ExpandButton}"/>
 
                             <TextBlock Foreground="MintCream" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" Text="Dodatkowe opcje" Margin="0 0 0 15"/>
 
-                            <ToggleButton Grid.Column="1" HorizontalAlignment="Center"
-                                Content="Zaloguj" Width="302" Height="50" IsChecked="{Binding IsRegister}"
+                            <ToggleButton Grid.Column="1" HorizontalAlignment="Stretch"
+                                Content="Zaloguj"  Height="50" IsChecked="{Binding IsRegister}"
                                 Style="{StaticResource ChangeStateButton}" />
-                            <Button Width="302" Height="50" IsEnabled="True" Command="{Binding ManageDatabaseCommand}"
-                                    Style="{StaticResource ChangeStateButtons}" Content="Wyczyść bazę danych i wgraj pytania" />
                         </StackPanel>
+                            <Button Height="50" IsEnabled="True" VerticalAlignment="Bottom" Command="{Binding ManageDatabaseCommand}"
+                                    Style="{StaticResource ChangeStateButtons}" Content="Reset bazy i pytań" />
                     </Grid>
 
                 </materialDesign:DrawerHost.LeftDrawerContent>

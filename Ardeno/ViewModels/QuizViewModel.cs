@@ -1,22 +1,13 @@
 ﻿using Ardeno.Commands;
-using Ardeno.Helpers.Enums;
 using Ardeno.Models;
 using Ardeno.Services;
 using Ardeno.Stores;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Media3D;
-using System.Windows.Threading;
 
 namespace Ardeno.ViewModels
 {
@@ -80,9 +71,9 @@ namespace Ardeno.ViewModels
         }
         private void AnotherQuestion()
         {
-            IsCorrect1 = 0; 
-            IsCorrect2 = 0; 
-            IsCorrect3 = 0; 
+            IsCorrect1 = 0;
+            IsCorrect2 = 0;
+            IsCorrect3 = 0;
             IsCorrect4 = 0;
 
             _currentQuestion.Done = 1;
@@ -93,13 +84,13 @@ namespace Ardeno.ViewModels
         }
         private void CheckIfAllDone()
         {
-            if(!db.Questions.Any(x => x.Done == 0 && x.QuestionDifficulty == _difficulty))
+            if (!db.Questions.Any(x => x.Done == 0 && x.QuestionDifficulty == _difficulty))
             {
-                foreach(var question in db.Questions.Where(x => x.QuestionDifficulty == _difficulty))
+                foreach (var question in db.Questions.Where(x => x.QuestionDifficulty == _difficulty))
                 {
                     question.Done = 0;
                 }
-                    db.SaveChanges();
+                db.SaveChanges();
             }
         }
         private void CheckQuestion(object parameter)
@@ -187,15 +178,27 @@ namespace Ardeno.ViewModels
             IsAnimating = false;
             _currentQuestion.Done = 1;
 
-             db.SaveChanges();
+            db.SaveChanges();
             ResetButtonsAndStartGame();
         }
-
         private void AddPoints()
         {
             var loggedUser = LoginViewModel.LoggedUser;
 
-            db.Users.Single(x => x.Username == loggedUser).QuizScore += 5;
+            if (_difficulty == "Easy")
+            {
+                Points = 5;
+            }
+            else if (_difficulty == "Medium")
+            {
+                Points = 10;
+            }
+            else
+            {
+                Points = 15;
+            }
+
+            db.Users.Single(x => x.Username == loggedUser).QuizScore += Points;
 
             db.SaveChanges();
         }
@@ -210,7 +213,7 @@ namespace Ardeno.ViewModels
                 IsCorrect4 = 0;
                 PointsVisibility = Visibility.Hidden;
                 LoadNewQuestion(_difficulty);
-    });
+            });
         }
 
         private void ShowRightAnswer(string correctAnswer)
@@ -256,17 +259,19 @@ namespace Ardeno.ViewModels
 
         #region Properties
 
-        private string _question ;
+        private string _question;
 
         public string Question
         {
             get { return _question; }
-            set { _question = value;
+            set
+            {
+                _question = value;
                 OnPropertyChanged(nameof(Question));
             }
         }
 
-        private string _answer1 ;
+        private string _answer1;
 
         public string Answer1
         {
@@ -278,7 +283,7 @@ namespace Ardeno.ViewModels
             }
         }
 
-        private string _answer2 ;
+        private string _answer2;
 
         public string Answer2
         {
@@ -290,7 +295,7 @@ namespace Ardeno.ViewModels
             }
         }
 
-        private string _answer3 ;
+        private string _answer3;
 
         public string Answer3
         {
@@ -302,7 +307,7 @@ namespace Ardeno.ViewModels
             }
         }
 
-        private string _answer4 ;
+        private string _answer4;
 
         public string Answer4
         {
@@ -319,7 +324,9 @@ namespace Ardeno.ViewModels
         public int IsCorrect1
         {
             get { return _isCorrect1; }
-            set { _isCorrect1 = value;
+            set
+            {
+                _isCorrect1 = value;
                 OnPropertyChanged(nameof(IsCorrect1));
             }
         }
@@ -365,7 +372,9 @@ namespace Ardeno.ViewModels
         public bool IsAnimating
         {
             get { return _isAnimating; }
-            set { _isAnimating = value;
+            set
+            {
+                _isAnimating = value;
                 OnPropertyChanged(nameof(IsAnimating));
             }
         }
@@ -375,7 +384,9 @@ namespace Ardeno.ViewModels
         public Visibility StartVisibility
         {
             get { return _startVisibility; }
-            set { _startVisibility = value;
+            set
+            {
+                _startVisibility = value;
                 OnPropertyChanged(nameof(StartVisibility));
             }
         }
@@ -397,11 +408,24 @@ namespace Ardeno.ViewModels
         public Visibility PointsVisibility
         {
             get { return _pointsVisibility; }
-            set { _pointsVisibility = value;
+            set
+            {
+                _pointsVisibility = value;
                 OnPropertyChanged(nameof(PointsVisibility));
             }
         }
 
+        private int _points;
+
+        public int Points
+        {
+            get { return _points; }
+            set
+            {
+                _points = value;
+                OnPropertyChanged(nameof(Points));
+            }
+        }
 
 
         #endregion

@@ -1,25 +1,24 @@
 ﻿using Ardeno.Commands;
 using Ardeno.Models;
+using Ardeno.Services;
 using Ardeno.Stores;
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static System.Reflection.Metadata.BlobBuilder;
-using System.IO;
-using Ardeno.Helpers.Enums;
-using Ardeno.Services;
 
 namespace Ardeno.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+
+        #region Fields
         private readonly NavigationStore _navigationStore;
         private readonly ApplicationDbContext db = new();
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
@@ -28,23 +27,29 @@ namespace Ardeno.ViewModels
         public ICommand NavigateLogin { get; set; }
         public ICommand ManageDatabaseCommand { get; set; }
 
+        #endregion
+
+        #region Constructor
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnViewModelChange;
 
             NavigateRegister = new NavigationCommand<RegisterViewModel>(new NavigationService<RegisterViewModel>(
-                navigationStore, () => new RegisterViewModel(navigationStore)), 
+                navigationStore, () => new RegisterViewModel(navigationStore)),
                 x => true);
 
             NavigateLogin = new NavigationCommand<LoginViewModel>(new NavigationService<LoginViewModel>(
-                navigationStore, () => new LoginViewModel(navigationStore)), 
+                navigationStore, () => new LoginViewModel(navigationStore)),
                 x => true);
 
             ManageDatabaseCommand = new RelayCommand(x => DatabaseActions(), x => true);
 
         }
 
+        #endregion
+
+        #region Methods
         private void DatabaseActions()
         {
             //Czy napewno?
@@ -53,16 +58,18 @@ namespace Ardeno.ViewModels
                 db.Users.RemoveRange(db.Users);
                 db.Questions.RemoveRange(db.Questions);
                 db.Words.RemoveRange(db.Words);
+                db.Quotes.RemoveRange(db.Quotes);
             }
             catch { }
 
             if (db.SaveChanges() > 0)
             {
-                MessageBox.Show("Wyszczono");
+                MessageBox.Show("Wyczyszczono");
             }
 
             FillDatabaseQuiz();
             FillDatabaseLotrle();
+            FillDatabaseQuotes();
             if (db.SaveChanges() > 0)
             {
                 MessageBox.Show("Dodano pytania z pliku Excel");
@@ -93,9 +100,9 @@ namespace Ardeno.ViewModels
                 list = (from DataRow dr in Data.Rows
                         select new Word()
                         {
-                             CurrentWord = dr["Word"].ToString().ToUpper(),
-                             Hint = dr["Hint"] == null ? string.Empty : dr["Hint"].ToString() ,
-                             Done = 0
+                            CurrentWord = dr["Word"].ToString().ToUpper(),
+                            Hint = dr["Hint"] == null ? string.Empty : dr["Hint"].ToString(),
+                            Done = 0
 
                         }).ToList();
 
@@ -135,7 +142,7 @@ namespace Ardeno.ViewModels
                 list = (from DataRow dr in Data.Rows
                         select new Question()
                         {
-                            QuestionTitle= dr["Question"].ToString(),
+                            QuestionTitle = dr["Question"].ToString(),
                             QuestionDifficulty = dr["Difficulty"].ToString(),
                             FirstAnswer = dr["Answer1"].ToString(),
                             SecondAnswer = dr["Answer2"].ToString(),
@@ -159,6 +166,46 @@ namespace Ardeno.ViewModels
             }
         }
 
+        private void FillDatabaseQuotes()
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Helpers\Quotes.xlsx");
+            try
+            {
+                OleDbConnection connection = new((@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties='Excel 12.0;HDR=YES;IMEX=1;';"));
+                connection.Open();
+                OleDbCommand command = new("SELECT * FROM [" + "Arkusz1" + "$]", connection);
+                DataTable Data = new();
+                OleDbDataAdapter adapter = new(command);
+                adapter.Fill(Data);
+                connection.Close();
+                for (int i = Data.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (Data.Rows[i][0].ToString() == String.Empty)
+                    {
+                        Data.Rows.RemoveAt(i);
+                    }
+                }
+                List<Quote> list = new();
+
+                list = (from DataRow dr in Data.Rows
+                        select new Quote()
+                        {
+                            CurrentQuote = dr["Quote"].ToString(),
+                            Author = dr["Author"].ToString()
+
+                        }).ToList();
+
+                foreach (Quote item in list)
+                {
+                    db.Quotes.Add(item);
+                }
+            }
+            catch (OleDbException ex)
+            {
+                MessageBox.Show("Coś poszło nie tak");
+            }
+        }
+
         private void OnViewModelChange()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
@@ -176,13 +223,17 @@ namespace Ardeno.ViewModels
             }
         }
 
+        #endregion
+
         #region Properties
         private bool _isRegister = false;
 
         public bool IsRegister
         {
             get { return _isRegister; }
-            set { _isRegister = value;
+            set
+            {
+                _isRegister = value;
                 OnStateChange();
                 OnPropertyChanged(nameof(IsRegister));
             }
@@ -196,8 +247,8 @@ namespace Ardeno.ViewModels
             set
             {
                 _isChecked = value;
-                
-                if(value)
+
+                if (value)
                 {
                     Visibility = Visibility.Visible;
                     MenuVisibility = Visibility.Hidden;
@@ -208,7 +259,7 @@ namespace Ardeno.ViewModels
                     Task.Run(() =>
                     {
                         Thread.Sleep(180);
-                    MenuVisibility = Visibility.Visible;
+                        MenuVisibility = Visibility.Visible;
                     });
                 }
 
@@ -221,7 +272,9 @@ namespace Ardeno.ViewModels
         public Visibility Visibility
         {
             get { return visibility; }
-            set { visibility = value;
+            set
+            {
+                visibility = value;
                 OnPropertyChanged(nameof(Visibility));
             }
         }

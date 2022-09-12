@@ -3,7 +3,6 @@ using Ardeno.Models;
 using Ardeno.Services;
 using Ardeno.Stores;
 using Ardeno.Views;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +13,10 @@ using System.Windows.Media.Animation;
 
 namespace Ardeno.ViewModels
 {
+
+    /// <summary>
+    /// Logic form Lotrle Page Game
+    /// </summary>
     #region Model
     public class Letters
     {
@@ -28,7 +31,7 @@ namespace Ardeno.ViewModels
         //Word to guess
         private string _currentWord;
         //Actual Row
-        private static int  _currentRow;
+        private static int _currentRow;
         //Actual Column
         private static int _currentColumn;
 
@@ -71,34 +74,38 @@ namespace Ardeno.ViewModels
         #region GameMethods
         private void AnotherWord()
         {
+
+
             db.Words.FirstOrDefault(x => x.CurrentWord == _currentWord).Done = 1;
             db.SaveChanges();
             Hint = string.Empty;
+            _hasEnded = false;
             LoadNewGame();
         }
         private void LoadNewGame()
         {
             PointsVisibility = Visibility.Hidden;
             GetNewWord();
-            LoadGridAsync();
+            LoadGrid();
             _currentColumn = 1;
             _currentRow = 1;
         }
         private void Play(string letter)
         {
-           
+            if (_hasEnded) return;
+
             //Dynamic button change
             var currentButton = Letters.Where(x => x.Row == _currentRow && x.Column == _currentColumn).FirstOrDefault();
 
             //Backspace click
-            if(letter.Equals("BACK"))
+            if (letter.Equals("BACK"))
             {
                 var deleteButton = Letters.Where(x => x.Row == _currentRow && x.Column == _currentColumn - 1).FirstOrDefault();
 
-                    if (deleteButton == null)
-                    {
-                        return;
-                    }
+                if (deleteButton == null)
+                {
+                    return;
+                }
                 deleteButton.Button.Content = "";
                 _currentColumn--;
                 currentButton = deleteButton;
@@ -108,7 +115,7 @@ namespace Ardeno.ViewModels
             }
 
             //Enter to check if guessed
-            if(letter.Equals("RETURN") && Letters.Where(x => x.Row == _currentRow).Any(x => x.Button.Content != "" && _currentColumn > _currentWord.Length ))
+            if (letter.Equals("RETURN") && Letters.Where(x => x.Row == _currentRow).Any(x => x.Button.Content != "" && _currentColumn > _currentWord.Length))
             {
                 var word = string.Empty;
 
@@ -147,7 +154,6 @@ namespace Ardeno.ViewModels
                 //WIN
                 if (_currentWord.Equals(word))
                 {
-                    MessageBox.Show("Wygrałeś");
                     db.Words.Single(x => x.CurrentWord == word).Done = 1;
                     db.SaveChanges();
                     _hasEnded = true;
@@ -161,7 +167,7 @@ namespace Ardeno.ViewModels
 
                 return;
             }
-            
+
             //Prevent Null button and characters other than letters
             if (_currentColumn > _currentWord.Length || letter.Length > 1)
             {
@@ -183,15 +189,14 @@ namespace Ardeno.ViewModels
             db.Users.Single(x => x.Username == loggedUser).LotrleScore += 10;
             db.SaveChanges();
 
-
         }
-        private void LoadGridAsync()
+        private void LoadGrid()
         {
             Letters = new();
 
             for (int i = 1; i <= 6; i++)
             {
-                for(int j = 1; j <= _currentWord.Length; j ++)
+                for (int j = 1; j <= _currentWord.Length; j++)
                 {
                     Letters.Add(new ViewModels.Letters
                     {
@@ -203,7 +208,7 @@ namespace Ardeno.ViewModels
             }
             Hint = string.Empty;
         }
-        private void GetLetter(object? parameter)
+        private void GetLetter(object parameter)
         {
             var letter = (parameter as KeyEventArgs).Key.ToString().ToUpper();
 
@@ -235,10 +240,6 @@ namespace Ardeno.ViewModels
         {
             Hint = db.Words.Single(x => x.CurrentWord == _currentWord).Hint;
         }
-        protected virtual void OnAnimationCalled()
-        {
-            AnimationCalled?.Invoke(this, EventArgs.Empty);
-        }
 
         #endregion
 
@@ -247,9 +248,10 @@ namespace Ardeno.ViewModels
         private ObservableCollection<Letters> _letters;
 
         public ObservableCollection<Letters> Letters
-        { 
+        {
             get { return _letters; }
-            set {
+            set
+            {
                 _letters = value;
                 OnPropertyChanged(nameof(Letters));
             }
@@ -260,7 +262,9 @@ namespace Ardeno.ViewModels
         public string Hint
         {
             get { return _hint; }
-            set { _hint = value;
+            set
+            {
+                _hint = value;
                 OnPropertyChanged(nameof(Hint));
             }
         }
@@ -270,7 +274,9 @@ namespace Ardeno.ViewModels
         public Visibility PointsVisibility
         {
             get { return visibility; }
-            set { visibility = value;
+            set
+            {
+                visibility = value;
                 OnPropertyChanged(nameof(PointsVisibility));
             }
         }

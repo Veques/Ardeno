@@ -58,6 +58,25 @@ namespace Ardeno.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("Ardeno.Models.Quote", b =>
+                {
+                    b.Property<int>("QuoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CurrentQuote")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("QuoteId");
+
+                    b.ToTable("Quotes");
+                });
+
             modelBuilder.Entity("Ardeno.Models.User", b =>
                 {
                     b.Property<int>("UserId")

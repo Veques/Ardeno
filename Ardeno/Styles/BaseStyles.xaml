@@ -634,10 +634,24 @@
         <Setter Property="FontSize" Value="23"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="Margin" Value="3 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <TextBlock Text="{TemplateBinding Button.Content}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
 
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
 
     </Style>
-
+    
+    <!-- Data Grid -->
     <Style x:Key="DataGrid" TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="CanUserAddRows" Value="False"/>
@@ -673,6 +687,7 @@
         <Setter Property="FontSize" Value="16"/>
 
     </Style>
+    
     <Style x:Key="DataGridColumnStyle" TargetType="TextBlock">
         <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
@@ -685,44 +700,20 @@
     <!-- SuccesRegistrationAnimation -->
     <Storyboard x:Key="SuccessRegistrationStorybard">
         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
-            <EasingColorKeyFrame KeyTime="00:00:01" Value="#11FF00"/>
-        </ColorAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <Storyboard x:Key="SuccessRegistrationStorybardContinue">
-        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
-            <EasingColorKeyFrame KeyTime="00:00:02" Value="OrangeRed"/>
+            <EasingColorKeyFrame KeyTime="00:00:00.4" Value="#11FF00"/>
+            <EasingColorKeyFrame KeyTime="00:00:01" Value="OrangeRed"/>
         </ColorAnimationUsingKeyFrames>
     </Storyboard>
 
     <!-- ErrorRegistrationAnimation -->
     <Storyboard x:Key="ErrorRegistrationStorybard">
         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
-            <EasingColorKeyFrame KeyTime="00:00:01" Value="Red"/>
-        </ColorAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <Storyboard x:Key="ErrorRegistrationStorybardContinue">
-        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
-            <EasingColorKeyFrame KeyTime="00:00:02" Value="OrangeRed"/>
+            <EasingColorKeyFrame KeyTime="00:00:0.4" Value="Red"/>
+            <EasingColorKeyFrame KeyTime="00:00:01" Value="OrangeRed"/>
         </ColorAnimationUsingKeyFrames>
     </Storyboard>
 
     <!-- DifficultyQuizAnimations -->
-    <Storyboard x:Key="HardAnimationQuiz">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="53">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <QuarticEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
-            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
     <Storyboard x:Key="EasyAnimationQuiz">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
             <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
@@ -736,8 +727,8 @@
         </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.300000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.35" Value="1"/>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
     <Storyboard x:Key="MediumAnimationQuiz" SlipBehavior="Grow">
@@ -753,12 +744,26 @@
         </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.350000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.4" Value="1"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="HardAnimationQuiz">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="53">
+                <EasingDoubleKeyFrame.EasingFunction>
+                    <QuarticEase EasingMode="EaseInOut"/>
+                </EasingDoubleKeyFrame.EasingFunction>
+            </EasingDoubleKeyFrame>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.400000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.45" Value="1"/>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 
-    <Storyboard x:Key="HardBackAnimationQuiz">
+    <Storyboard x:Key="BackQuizAnimation">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
             <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
         </DoubleAnimationUsingKeyFrames>
@@ -771,45 +776,11 @@
         </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.1200000" Value="0"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:00.45" Value="0"/>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
-    <Storyboard x:Key="EasyBackAnimationQuiz">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <QuarticEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
-            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-    <Storyboard x:Key="MediumBackAnimationQuiz" SlipBehavior="Grow">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <QuarticEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
-            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-    
+
     <!-- Quizz Answers -->
     <Storyboard x:Key="CorrectAnswer">
         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">

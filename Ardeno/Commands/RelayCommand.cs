@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Ardeno.Commands
@@ -12,7 +8,7 @@ namespace Ardeno.Commands
         private Action<object> _execute { get; }
         private Predicate<object> _canExecute { get; }
 
-        public RelayCommand(Action <object> execute, Predicate<object> canExecute)
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;

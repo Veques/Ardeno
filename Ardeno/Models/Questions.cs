@@ -1,6 +1,4 @@
-﻿using Ardeno.Helpers.Enums;
-
-namespace Ardeno.Models
+﻿namespace Ardeno.Models
 {
     public class Question
     {

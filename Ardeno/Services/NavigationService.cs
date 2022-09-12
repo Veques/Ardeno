@@ -1,14 +1,10 @@
 ﻿using Ardeno.Stores;
 using Ardeno.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ardeno.Services
 {
-    public class NavigationService<TViewModel> 
+    public class NavigationService<TViewModel>
         where TViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
