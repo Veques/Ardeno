@@ -510,10 +510,8 @@
     <Style x:Key="PasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignPasswordBox}">
 
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="OverridesDefaultStyle" Value="False"/>
         <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="OrangeRed"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Padding" Value="0 4 0 4"/>
+        <Setter Property="Height" Value="28"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="FontSize" Value="18"/>

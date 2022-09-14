@@ -38,6 +38,13 @@ namespace Ardeno.ViewModels
                 return;
             }
 
+            if(!db.Quotes.Any())
+            {
+                CommunicateState = "Najpierw zaimportuj bazę danych";
+                ErrorAnimation = true;
+                return;
+            }
+
             LoggedUser = Username;
 
             GameWindow gameWindow = new()

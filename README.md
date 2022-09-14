@@ -1,2 +1,4 @@
 # Ardeno
-Moja nowsza aplikacja zawierająca kod lepszej jakości i połączona z drugim hobby jakim jest Władca Pierścieni
+Aplikacja powiązana z moim hobby jakim jest Władca Pierścieni. 
+
+Po włączeniu aplikacji należy najpierw zaimportować bazę danych, a potem dodać nowe konto.

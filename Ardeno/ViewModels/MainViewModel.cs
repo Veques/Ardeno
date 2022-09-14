@@ -25,7 +25,8 @@ namespace Ardeno.ViewModels
 
         public ICommand NavigateRegister { get; set; }
         public ICommand NavigateLogin { get; set; }
-        public ICommand ManageDatabaseCommand { get; set; }
+        public ICommand FillDatabaseCommand { get; set; }
+        public ICommand ClearDatabaseCommand { get; set; }
 
         #endregion
 
@@ -43,16 +44,13 @@ namespace Ardeno.ViewModels
                 navigationStore, () => new LoginViewModel(navigationStore)),
                 x => true);
 
-            ManageDatabaseCommand = new RelayCommand(x => DatabaseActions(), x => true);
+            ClearDatabaseCommand = new RelayCommand(x => ClearDatabase(), x => true);
+            FillDatabaseCommand = new RelayCommand(x => FillDatabase(), x => !db.Quotes.Any());
 
         }
 
-        #endregion
-
-        #region Methods
-        private void DatabaseActions()
+        private void ClearDatabase()
         {
-            //Czy napewno?
             try
             {
                 db.Users.RemoveRange(db.Users);
@@ -66,7 +64,13 @@ namespace Ardeno.ViewModels
             {
                 MessageBox.Show("Wyczyszczono");
             }
+        }
 
+        #endregion
+
+        #region Methods
+        private void FillDatabase()
+        {
             FillDatabaseQuiz();
             FillDatabaseLotrle();
             FillDatabaseQuotes();

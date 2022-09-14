@@ -83,8 +83,13 @@
                                 Content="Zaloguj"  Height="50" IsChecked="{Binding IsRegister}"
                                 Style="{StaticResource ChangeStateButton}" />
                         </StackPanel>
-                            <Button Height="50" IsEnabled="True" VerticalAlignment="Bottom" Command="{Binding ManageDatabaseCommand}"
-                                    Style="{StaticResource ChangeStateButtons}" Content="Reset bazy i pytań" />
+                        <StackPanel VerticalAlignment="Bottom">
+                            
+                            <Button Height="50" IsEnabled="True" VerticalAlignment="Bottom" Command="{Binding ClearDatabaseCommand}"
+                                    Style="{StaticResource ChangeStateButtons}" Content="Wyczyść bazę danych" />
+                        <Button Height="50" IsEnabled="True" VerticalAlignment="Bottom" Command="{Binding FillDatabaseCommand}"
+                                    Style="{StaticResource ChangeStateButtons}" Content="Wypełnij bazę danych" />
+                        </StackPanel>
                     </Grid>
 
                 </materialDesign:DrawerHost.LeftDrawerContent>

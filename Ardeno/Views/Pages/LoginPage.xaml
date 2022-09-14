@@ -15,7 +15,7 @@
             <SolidColorBrush Color="MintCream" />
         </Border.Background>
     <Grid >
-            <TextBlock Visibility="{Binding }" Text="{Binding CommunicateState}" FontWeight="Medium" FontSize="18" Margin="15 15 15 0" HorizontalAlignment="Right" Foreground="{StaticResource ThemeColor}">
+            <TextBlock Text="{Binding CommunicateState}" FontWeight="Medium" FontSize="18" Margin="15 15 15 0" HorizontalAlignment="Right" Foreground="{StaticResource ThemeColor}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
